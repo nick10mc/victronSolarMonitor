@@ -1,4 +1,4 @@
-# victronSolMon
+# Victron Solar Monitor
 Lightweight, simple Solar Monitor background program to be used with Victron SmartSolar products for Raspberry Pi.
 
 Usage:
