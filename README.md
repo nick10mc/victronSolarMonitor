@@ -11,8 +11,16 @@ Usage:
    cd victronSolarMonitor
    sudo chmod +x insall.sh
    ```
-3. Run the installation script, which will download all neccessary dependencies. This will also compile simpleBLE and link it to the main executable. The script will compile the program and install it in the proper directory along with config.txt. The script will then add the system service and a shortcut to configure config.txt. Follow the on screen prompts, and enter the config data in the formats displayed.
+3. Run the installation script, which will download all neccessary dependencies. This will also compile simpleBLE and link it to the main executable. The script will compile the program and install it in the proper directory along with config.txt. The script will then add the system service and a shortcut to configure config.txt.
    ```
    sudo ./install.sh
    ```
-4. Output files will be recorded to a folder on the desktop
+4. When prompted, enter your desired confirmation data. To access the MAC address and encryption key for your Victron SmartSolar charger, you must download VictronConnect to your phone (https://www.victronenergy.com/victronconnectapp/victronconnect/downloads), open up the app, and connect to the controller. Your pin code should be listed in the documentation that was included with the controller. If you do not have a code, try "000000". Failing that, the controller can be manually reset, the procedure for which is in Victron's included literature.
+
+Once connected, click on the gear icon in the upper right corner.
+
+Then, click on the three dot "hamburger" at the top right, and select "Product Info".
+
+Scroll down to the bottom, and copy the address and encryption key. Paste these into the prompts.
+
+6. Output files will be recorded to a folder on the desktop
