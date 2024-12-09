@@ -92,7 +92,7 @@ if [ ! -f "$INSTALL_DIR/$CONFIG_FILE" ]; then
 device_mac=$MAC
 key=$KEY
 scan_interval=$SCAN_INT
-output_file="/home/$OUTPUT_DIR/$FILE_OUT"
+output_file="$OUTPUT_DIR/$FILE_OUT"
 new_file_interval=$NEW_FILE_INT
 EOL
 fi
