@@ -19,12 +19,23 @@ while true; do
     esac
 done
 
+# Get the invoking user's home directory 12/9/2024
+USER_HOME=$(getent passwd "$SUDO_USER" | cut -d: -f6)
+
+if [ -z "$USER_HOME" ]; then
+    echo -e "${R}Error: Could not determine the home directory for $SUDO_USER.${NC}"
+    exit 1
+fi
+
+DESKTOP_DIR="$USER_HOME/Desktop"
+OUTPUT_DIR="$USER_HOME/Desktop/SolarMonitorOutput"
+
 BUILD_DIR="build"
 INSTALL_DIR="/usr/local/bin/solarMonitor"
 SERVICE_DIR="/etc/systemd/system"
 SERVICE_FILE="solarMonitor.service"
 CONFIG_FILE="config.txt"
-OUTPUT_DIR="$SUDO_USER/Desktop/SolarMonitorOutput"
+OUTPUT_DIR="$USER_HOME/Desktop/SolarMonitorOutput"
 
 # Install dependencies, openSSL included with apt-get update/upgrade
 echo -e "${W}Installing dependencies... ${NC}"
@@ -78,16 +89,16 @@ echo -r -e "${NC}"
 if [ ! -f "$INSTALL_DIR/$CONFIG_FILE" ]; then
     echo -e "${W}Creating config.txt..."
     sudo cat <<EOL > "$INSTALL_DIR/$CONFIG_FILE"
-device_mac=${MAC}
-key=${KEY}
-scan_interval=${SCAN_INT}
-output_file="{$OUTPUT_DIR/$FILE_OUT}"
-new_file_interval=${NEW_FILE_INT}
+device_mac=$MAC
+key=$KEY
+scan_interval=$SCAN_INT
+output_file="/home/$OUTPUT_DIR/$FILE_OUT"
+new_file_interval=$NEW_FILE_INT
 EOL
 fi
 
 # create a desktop shortcut to config.txt directory and move the systemctl restart script there.
-DESKTOP_DIR="$SUDO_USER/Desktop"
+DESKTOP_DIR="$USER_HOME/Desktop"
 SHORTCUT_FILE="$DESKTOP_DIR/solarMonitorConfig.desktop"
 sudo cat <<EOL > "$SHORTCUT_FILE"
 [Desktop Entry]
