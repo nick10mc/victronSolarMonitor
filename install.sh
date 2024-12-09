@@ -24,7 +24,7 @@ INSTALL_DIR="/usr/local/bin/solarMonitor"
 SERVICE_DIR="/etc/systemd/system"
 SERVICE_FILE="solarMonitor.service"
 CONFIG_FILE="config.txt"
-OUTPUT_DIR="$HOME/Desktop/SolarMonitorOutput"
+OUTPUT_DIR="$SUDO_USER/Desktop/SolarMonitorOutput"
 
 # Install dependencies, openSSL included with apt-get update/upgrade
 echo -e "${W}Installing dependencies... ${NC}"
@@ -87,7 +87,7 @@ EOL
 fi
 
 # create a desktop shortcut to config.txt directory and move the systemctl restart script there.
-DESKTOP_DIR="$HOME/Desktop"
+DESKTOP_DIR="$SUDO_USER/Desktop"
 SHORTCUT_FILE="$DESKTOP_DIR/solarMonitorConfig.desktop"
 sudo cat <<EOL > "$SHORTCUT_FILE"
 [Desktop Entry]
