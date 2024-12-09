@@ -38,9 +38,9 @@ else
     echo -e "${W}SimpleBLE repository already exists.${NC}"
 fi
 cd SimpleBLE
-cmake -S ./simpleble -B build_simpleble -DBUILD_SHARED_LIBS=TRUE
-cmake --build build_simpleble
-cmake --install build_simpleble
+sudo cmake -S ./simpleble -B build_simpleble -DBUILD_SHARED_LIBS=TRUE
+sudo cmake --build build_simpleble
+sudo cmake --install build_simpleble
 export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 cd ..
 
@@ -54,10 +54,10 @@ cd "$BUILD_DIR" || exit 1
 
 echo -e "${W}Running cmake..."
 # run Cmake
-cmake ..
+sudo cmake ..
 
 # Build the project
-cmake --build . --target install --
+sudo cmake --build . --target install --
 
 cd ..
 
@@ -77,7 +77,7 @@ echo -r -e "${NC}"
 # create config.txt
 if [ ! -f "$INSTALL_DIR/$CONFIG_FILE" ]; then
     echo -e "${W}Creating config.txt..."
-    cat <<EOL > "$INSTALL_DIR/$CONFIG_FILE"
+    sudo cat <<EOL > "$INSTALL_DIR/$CONFIG_FILE"
 device_mac=${MAC}
 key=${KEY}
 scan_interval=${SCAN_INT}
@@ -89,7 +89,7 @@ fi
 # create a desktop shortcut to config.txt directory and move the systemctl restart script there.
 DESKTOP_DIR="$HOME/Desktop"
 SHORTCUT_FILE="$DESKTOP_DIR/solarMonitorConfig.desktop"
-cat <<EOL > "$SHORTCUT_FILE"
+sudo cat <<EOL > "$SHORTCUT_FILE"
 [Desktop Entry]
 Version=1.0
 Type=Application
@@ -118,8 +118,9 @@ Description=Victron Solar Monitor Service
 After=network.target
 
 [Service]
-ExecStart=/usr/local/bin/VictronSolarMon/solarMonitor
-WorkingDirectory=/usr/local/bin/VictronSolarMon
+ExecStart=/usr/local/bin/solarMonitor/solarMonitor
+WorkingDirectory=/usr/local/bin/solarMonitor
+Environment="LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH"
 Restart=always
 RestartSec=5
 User=root
