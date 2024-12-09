@@ -1,16 +1,8 @@
-# victronSolarMonitor
+# victronSolMon
+Lightweight, simple Solar Monitor background program &amp; GUI for Ubuntu/Raspberry Pi
 
-[![ci](https://github.com/nick10mc/victronSolarMonitor/actions/workflows/ci.yml/badge.svg)](https://github.com/nick10mc/victronSolarMonitor/actions/workflows/ci.yml)
-[![codecov](https://codecov.io/gh/nick10mc/victronSolarMonitor/branch/main/graph/badge.svg)](https://codecov.io/gh/nick10mc/victronSolarMonitor)
-[![CodeQL](https://github.com/nick10mc/victronSolarMonitor/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/nick10mc/victronSolarMonitor/actions/workflows/codeql-analysis.yml)
+Compilation:
+```
+g++ -std=c++23 -o solarMonitor main.cpp BLE.cpp AES.cpp bleParse.cpp datFunc.cpp mfgRegisterDat.cpp -I/usr/local/include/simpleble -L/usr/local/lib -lsimpleble -lpthread -lbluetooth -ldbus-1 -lssl -lcrypto
+```
 
-## About victronSolarMonitor
-
-
-
-## More Details
-
- * [Dependency Setup](README_dependencies.md)
- * [Building Details](README_building.md)
- * [Troubleshooting](README_troubleshooting.md)
- * [Docker](README_docker.md)

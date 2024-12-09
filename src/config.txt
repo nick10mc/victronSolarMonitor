@@ -1,0 +1,5 @@
+device_mac=d19a0beb9982
+key=3b3baa4986a89b47e4b709ab117a4a2d
+scan_interval=5
+output_file="/home/osu/Desktop/SolMonitorOutput/ChargerData.csv"
+new_file_interval=1

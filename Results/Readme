@@ -1,0 +1,6 @@
+The version of the software that these files were produced with contained an error in the manufacturer data
+lookup table that prevented the printing of device state and error state in human readable strings. A temporary
+workaround was introduced afterwards, offloading that job to MATLAB until time can be dedicated to debug it.
+
+The .csv files are structured like the following:
+Date/time, device status, error status, battery voltage (V), daily yield (kWh), instantaneous photovoltaic power (W), load current (A),
