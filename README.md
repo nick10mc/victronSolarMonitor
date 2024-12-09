@@ -16,16 +16,24 @@ Usage:
    sudo ./install.sh
    ```
 4. When prompted, enter your desired confirmation data. To access the MAC address and encryption key for your Victron SmartSolar charger, you must download VictronConnect to your phone (https://www.victronenergy.com/victronconnectapp/victronconnect/downloads), open up the app, and connect to the controller. Your pin code should be listed in the documentation that was included with the controller. If you do not have a code, try "000000". Failing that, the controller can be manually reset, the procedure for which is in Victron's included literature.
-![Screenshot_20241209-154320](https://github.com/user-attachments/assets/77390e69-f371-4ecf-bfc4-1e6f6d0bd265)
+   
+![Screenshot_20241209-154320](https://github.com/user-attachments/assets/5f6e548e-f66d-41e2-82e2-5f29ae55b828)
+
 
 Once connected, click on the gear icon in the upper right corner.
-![Screenshot_20241209-154334](https://github.com/user-attachments/assets/4b185677-5c88-406f-9147-e9a691ca803c)
+
+![Screenshot_20241209-154334](https://github.com/user-attachments/assets/9af79ac5-d10c-4780-ad2e-6ae36eac4dc9)
+
 
 Then, click on the three dot "hamburger" at the top right, and select "Product Info".
-![Screenshot_20241209-154343](https://github.com/user-attachments/assets/6914a6ca-32f2-4ff3-8fa4-57eb7f74ea60)
+
+![Screenshot_20241209-154343](https://github.com/user-attachments/assets/307a6f60-18fb-43ea-9dee-46329ea9e250)
+
 
 Scroll down to the bottom, and copy the address and encryption key. Paste these into the prompts.
-![Screenshot_20241209-154350](https://github.com/user-attachments/assets/ca67193f-242e-4593-8d4d-466371949595)
-![Screenshot_20241209-154403](https://github.com/user-attachments/assets/736037d4-b4e9-4a52-94fd-ca49c8851b50)
+
+![Screenshot_20241209-154350](https://github.com/user-attachments/assets/eb0d4489-5a7b-4c47-b335-2aafbc90f9a3)
+![Screenshot_20241209-154403](https://github.com/user-attachments/assets/efd1c60f-6241-4fc8-9185-1770bf9c7d75)
+
 
 6. Output files will be recorded to a folder on the desktop
