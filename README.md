@@ -1,5 +1,5 @@
 # victronSolMon
-Lightweight, simple Solar Monitor background program &amp; GUI for Ubuntu/Raspberry Pi
+Lightweight, simple Solar Monitor background program for Raspberry Pi
 
 Usage:
 1. Download the repository by typing the following into a bash terminal:
