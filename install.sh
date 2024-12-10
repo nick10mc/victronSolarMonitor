@@ -44,6 +44,11 @@ sudo apt-get upgrade -y
 # CMake
 sudo apt install -y cmake
 cmake --version
+# Add dependencies for OpenSSL - Note: dev-branch not inlcuded on Raspberry Pi distributable
+sudo apt install -y openssl
+sudo apt install -y libssl-dev
+# Include BlueZ dependencies - will be removed at later date
+sudo apt install -y bluez libbluetooth-dev
 # SimpleBLE
 sudo apt install libdbus-1-dev
 if [ ! -d "SimpleBLE" ]; then
