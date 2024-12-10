@@ -41,6 +41,9 @@ OUTPUT_DIR="$USER_HOME/Desktop/SolarMonitorOutput"
 echo -e "${W}Installing dependencies... ${NC}"
 sudo apt-get update
 sudo apt-get upgrade -y
+# CMake
+sudo apt install -y cmake
+cmake --version
 # SimpleBLE
 sudo apt install libdbus-1-dev
 if [ ! -d "SimpleBLE" ]; then
