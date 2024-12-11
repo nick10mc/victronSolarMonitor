@@ -44,7 +44,7 @@ Scroll down to the bottom, and copy the address and encryption key. Paste these 
 The config file can be changed by accessing the shortcut titled "solarMonitorConfig.desktop" on your user desktop. When you are finished editing the config file, press Ctrl+S to save, and then Ctrl+X to exit, it will restart the service automatically. Note: if you exit the terminal by clicking on the X button in the upper right corner, it will not restart the monitoring service.
 * If at any point you need to debug or confirm that the program is operating, use one of the following commands:
 ```
-sudo systemctl status watchdog --no-pager
+sudo systemctl status solarMonitor --no-pager
 ```
 or:
 ```
