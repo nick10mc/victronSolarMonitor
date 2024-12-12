@@ -11,7 +11,7 @@ Usage:
 2. Change directories, and set the permissions of the install.sh script to allow execution.
    ```
    cd victronSolarMonitor
-   sudo chmod +x insall.sh
+   sudo chmod +x intsall.sh
    ```
 3. Run the installation script, which will download all neccessary dependencies. This will also compile simpleBLE and link it to the main executable. The script will compile the program and install it in the proper directory along with config.txt. The script will then add the system service and a shortcut to configure config.txt.
    ```
