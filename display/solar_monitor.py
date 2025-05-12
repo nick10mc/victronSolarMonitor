@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import os
 import pandas as pd
 import matplotlib
@@ -5,8 +6,6 @@ import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 from datetime import datetime, timedelta
 import matplotlib.dates as mdates
-import time
-import argparse
 
 matplotlib.use('TkAgg')
 
@@ -16,8 +15,8 @@ def get_file_path(file_location):
     yesterday_date = (datetime.today() - timedelta(days=1)).strftime('%Y-%m-%d')
     today_date = datetime.today().strftime('%Y-%m-%d')
     # Build the file path for today's CSV file
-    file_path1 = os.path.join(file_location, f'test.csv_{yesterday_date}.csv')
-    file_path2 = os.path.join(file_location, f'test.csv_{today_date}.csv')
+    file_path1 = file_location + f'_{yesterday_date}.csv'
+    file_path2 = file_location + f'_{today_date}.csv'
     
     return file_path1, file_path2
 
@@ -146,11 +145,20 @@ def main(file_location):
     plt.show()
 
 if __name__ == "__main__":
+
+    # parse the config file
+
+    try:
+        with open('/usr/local/bin/solarMonitor/config.txt', 'rt', encoding='utf-8', errors='ignore') as f:
+            cfg = f.readlines()
+    except FileNotFoundError:
+        print(' >> No configuration file found!')
+
     # Argument parsing for file location
-    parser = argparse.ArgumentParser(description="Solar System Data Monitor")
-    parser.add_argument("file_location", type=str, help="Location of the CSV files")
-    args = parser.parse_args()
+    for c in cfg:
+        if c.split('=')[0].lower() in ('output_file',):
+            file_location=c.split('=')[1].strip().replace('"', '')
     
     # Run the monitoring program
-    main(args.file_location)
+    main(file_location)
 
