@@ -127,7 +127,7 @@ void dataTables::StatusTable()
 
 void dataTables::ErrorTable() // REGISTER 0xEDDA
 {
-    errorTable[0x00] = "NOT CHARGING";
+    errorTable[0x00] = "NO FAULT";
     errorTable[0x02] = "FAULT";
     errorTable[0x03] = "BAT. TEMP SENSOR ISSUE"; // BATTERY TEMPERATURE SENSOR ISSUE
     errorTable[0x04] = "BAT. TEMP SENSOR ISSUE"; // BATTERY TEMPERATURE SENSOR ISSUE
@@ -248,25 +248,43 @@ void dataTables::printModelTable() {
     }
 }
 
+void printKey(const keyType& key) {
+    std::visit([](auto&& arg) {
+        if constexpr (std::is_same_v<std::decay_t<decltype(arg)>, std::vector<unsigned char>>) {
+            // Special handling for std::vector<unsigned char>
+            std::cout << "Vector: ";
+            for (auto byte : arg) {
+                std::cout << std::hex << static_cast<int>(byte) << " ";  // Print each byte in hex
+            }
+            std::cout << std::dec << std::endl;  // Reset to decimal
+        } else {
+            std::cout << std::hex << static_cast<int>(arg) << std::endl;  // Print other types directly
+        }
+    }, key);
+}
+
 ///////////////////////// Lookup function /////////////////////////
 str dataTables::lookup(const str& tableType, const keyType& key) const {
+
+    ui8t ukey = std::get<ui8t>(key); // Extract ui8t from the variant
+    
     if (tableType == "model") {
-        auto data = modelTable.find(key);
+        auto data = modelTable.find(ukey);
         if (data != modelTable.end()) {
             return data->second;
         }
     } else if (tableType == "status") {
-        auto data = statusTable.find(key);
+        auto data = statusTable.find(ukey);
         if (data != statusTable.end()) {
             return data->second;
         }
     } else if (tableType == "error") {
-        auto data = errorTable.find(key);
+        auto data = errorTable.find(ukey);
         if (data != errorTable.end()) {
             return data->second;
         }
     } else if (tableType == "record") {
-        auto data = recordType.find(key);
+        auto data = recordType.find(ukey);
         if (data != recordType.end()) {
             return data->second;
         }
@@ -274,7 +292,7 @@ str dataTables::lookup(const str& tableType, const keyType& key) const {
         throw std::out_of_range("\033[1;31mInvalid table type in dataTables::lookup\033[0m");
     }
     
-    // str keyTypeName = typeid(key).name();
-    // std::cout << "Key not found in parsed data - dataTables::operator[]. Key used was of type " << keyTypeName << " with a value of " << key << std::endl;
-    return "";
+    //str keyTypeName = typeid(ukey).name();
+    //std::cout << "Key not found in parsed data - dataTables::operator[]. Key used was of type " << keyTypeName << " with a value of " << static_cast<int>(ukey) << std::endl;
+    return "NOT FOUND";
 }

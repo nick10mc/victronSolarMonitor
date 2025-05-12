@@ -175,15 +175,17 @@ void BLEscanner::scan()
         ui8t record_ = std::get<ui8t>(packet[rtype_]);
         //str recordType = victronDataTables.lookup("record",record_); //Bugged, Comment out until it can be fixed
         auto recordType = record_;
-        std::cout << "    Record Type: " << recordType << std::endl;
+        std::cout << "    Record Type: " << std::hex << static_cast<int>(record_)  << std::endl;
 
         // Organize the data into individual values for writing to CSV
         ui8t state_ = std::get<ui8t>(packet["Device State"]);
-        //auto DeviceState = victronDataTables.lookup("status",state_); //Bugged, Comment out until it can be fixed
-        auto DeviceState = state_;
+        auto DeviceState = victronDataTables.lookup("status", state_);
+
+        std::cout << "    Device State: " << DeviceState << std::endl;
+
         ui8t error_ = std::get<ui8t>(packet["Charger Error"]);
-        //auto ChargerError = victronDataTables.lookup("error",error_); //Bugged, Comment out until it can be fixed
-        auto ChargerError = error_;
+        auto ChargerError = victronDataTables.lookup("error",error_);
+        // auto ChargerError = error_;
         float batVoltage = static_cast<int16_t>(std::get<ui16t>(packet["Battery Voltage"])) * 0.01;
         float batCurrent = static_cast<int16_t>(std::get<ui16t>(packet["Battery Current"])) * 0.1;
         float yieldToday = std::get<ui16t>(packet["Yield Today"]) * 0.01;

@@ -8,6 +8,10 @@ Ohio State University, School of Earth Sciences, Undergraduate Research
 #include <algorithm> // specific for readConfig - needed for std::remove_if
 #include "bleParse.h"
 #include <filesystem>
+#include <bit>
+#include <chrono>
+#include <optional>
+#include <ctime>
 
 
 //Function to extract bits... used for our CSV as Victron uses fractional bytes to describe certain information.
@@ -42,7 +46,7 @@ unsigned int extractBits(const byteVector& data, size_t startBit, size_t numBits
 // Function to create and swap endianess of a 16 bit integer, assign them to new variable.
 ui16t byteSwaparoo(const ui8t byte1, const ui8t byte2)
 {
-    ui16t Swapped = std::byteswap(static_cast<ui16t>((byte1 << 8) | byte2));
+    ui16t Swapped = __builtin_bswap16(static_cast<ui16t>((byte1 << 8) | byte2));
     return Swapped;
 }
 
@@ -106,8 +110,10 @@ mapString readConfig(const str& filename) {
             // This should get rid of the whitespaces and fix our parser errors
 
             if (key == "output_file") {
-                if (value.size() < 4 || value.substr(value.size()-4) != ".csv") {
-                    value += ".csv";
+                if (value.size() < 4 || value.substr(value.size()-1) == "/") {
+                    // DDG: the logic was adding .csv twice
+                    // value += ".csv";
+                    value += "logfile";
                 }
             }
             if (!key.empty() && !value.empty())
@@ -193,6 +199,14 @@ byteVector hexStr2Bytes(const str& hexStr) {
 }
 
 
+auto getStartOfDay(std::chrono::system_clock::time_point tp) {
+    std::time_t now_t = std::chrono::system_clock::to_time_t(tp);
+    std::tm tm = *std::localtime(&now_t);
+    tm.tm_hour = 0;
+    tm.tm_min = 0;
+    tm.tm_sec = 0;
+    return std::chrono::system_clock::from_time_t(std::mktime(&tm));
+}
 
 sysClk::time_point CSV::lastTimeWritten = sysClk::now();
 
@@ -203,7 +217,8 @@ void CSV::write(std::vector<dataVariant>& data, const str& filename, const std::
     static std::optional<sysClk::time_point> lastTimeWritten;
     auto now = sysClk::now();
     static str currentName;
-    if (!lastTimeWritten || (now - *lastTimeWritten >= interval)) {
+
+    if (!lastTimeWritten || (getStartOfDay(now) - getStartOfDay(*lastTimeWritten) >= interval)) {
         currentName = generateFileName(filename);
         lastTimeWritten = now;
     }

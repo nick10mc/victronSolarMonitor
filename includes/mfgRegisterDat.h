@@ -21,8 +21,8 @@ class dataTables {
         void printModelTable();
     private:
         std::map<keyType, str> modelTable;
-        std::map<keyType, str> statusTable;
-        std::map<keyType, str> errorTable;
+        std::map<ui8t, str> statusTable;
+        std::map<ui8t, str> errorTable;
         std::map<keyType, str> recordType;
         struct VariantPrinter;
         keyType Variant;
