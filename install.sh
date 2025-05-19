@@ -49,6 +49,8 @@ sudo apt install -y openssl
 sudo apt install -y libssl-dev
 # Include BlueZ dependencies - will be removed at later date
 sudo apt install -y bluez libbluetooth-dev
+# dependencies for the python monitor program
+sudo apt install python3-matplotlib python3-pandas
 # SimpleBLE
 sudo apt install libdbus-1-dev
 if [ ! -d "SimpleBLE" ]; then
@@ -149,6 +151,10 @@ Environment=MY_VAR=my_value
 WantedBy=multi-user.target
 EOL
 fi
+
+# copy the visualization python script to /usr/local/bin
+sudo cp ./display/solar_monitor.py /usr/local/bin/solar_monitor.py
+sudo chmod +x /usr/local/bin/solar_monitor.py
 
 # Reload systemctl daemon
 echo -e "${W}Setting up systemd service..."

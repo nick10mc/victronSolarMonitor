@@ -10,6 +10,7 @@ by the preceding variable name, provides access to the data.
 #include "bleParse.h"
 #include <typeinfo> // for typeid
 #include "AES.h"
+#include "mfgRegisterDat.h"
 
 // Constructor - Initialize the object
 parsePacket::parsePacket(const byteVector& buffer) {
@@ -61,7 +62,6 @@ void parsePacket::parseDecryptedData(const ParsedValue& decryptedBuffer) {
     loadCurrentMSbit &= 0x01; // Bitmask-clear all but the LSbit of loadCurrent MSByte
     ui16t loadCurrent = byteSwaparoo(buffer[i+10],loadCurrentMSbit);
 
-    // Edit our map to hold the decrypted data
     parsedData["Device State"] = DeviceState;
     parsedData["Charger Error"] = chargerError;
     parsedData["Battery Voltage"] = batteryVoltage;
